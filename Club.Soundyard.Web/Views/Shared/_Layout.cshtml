@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        @Html.ActionLink("Soundyard Club", "Index", "Home", new { area = "" }, new { @class = "navbar-brand col-sm-3 col-md-2 mr-0" })
+        @Html.Partial("_LoginPartial")
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            @if (Request.IsAuthenticated)
+            {
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="@("nav-link " + (ViewBag.Title == "Dashboard" ? "active" : ""))" href="/Home/Dashboard">
+                                    <span data-feather="home"></span>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="@("nav-link " + (ViewBag.Title == "Report" ? "active" : ""))" href="/Home/Report">
+                                    <span data-feather="bar-chart-2"></span>
+                                    Reports
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="@("nav-link " + (ViewBag.Title == "Administration" || ViewBag.Title == "Log in" ? "active" : ""))" href="/Home/Administration">
+                                    <span data-feather="users"></span>
+                                    Administration
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            }
+        </div>
+
+        <main role="@(Request.IsAuthenticated ? "main" : "article")" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-4">
+            <div class="">
+                @RenderBody()
+            </div>
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Soundyard Club</p>
+            </footer>
+        </main>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
